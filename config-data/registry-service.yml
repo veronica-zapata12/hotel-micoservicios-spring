@@ -8,6 +8,6 @@ eureka:
     registerWithEureka: false
     fetchResgistry: false
     serviceUrl: 
-      http://127.0.0.1:${server.port}/eureka/
+      http://${eureka.instance.hostname}:${server.port}/eureka/
       
       
