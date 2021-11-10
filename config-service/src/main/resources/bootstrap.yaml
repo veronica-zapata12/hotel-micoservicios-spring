@@ -1,11 +1,12 @@
 server:
-  port: 8096
+  port: 8094
 spring:
   profiles:
     active: master
   cloud:
     config:
       server:
+        bootstrap : true
         git:
           uri: https://github.com/veronica-zapata12/hotel-micoservicios-spring.git
           searchPaths: config-data
