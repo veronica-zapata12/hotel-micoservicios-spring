@@ -1,0 +1,27 @@
+server:
+  port: 8095
+spring:
+  h2:
+    console:
+      enabled:true
+  datasource:
+    Url: jdbc:postgresql://localhost:5432/facturas-hotel
+    driverClassName: org.postgresql.Driver
+    platform: postgres
+    username: postgres
+    password: 12345
+    #initialization-mode: always
+
+
+
+  jpa:
+    show.sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        use_sql_comments: false
+        format_sql: false
+
