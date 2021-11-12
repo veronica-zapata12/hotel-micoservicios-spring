@@ -8,18 +8,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
 public class ReservaDto {
-    private static final String EL_ID_PERSONA_ES_OBLIGATORIO="el id de la persona es obligatorio";
-    private static final String LA_FECHA_INICIO_ES_OBLIGATORIO="la fecha de inicio es obligatorio";
-    private static final String LA_FECHA_FIN_ES_OBLIGATORIO="la fecha fin es obligatorio";
     private long idReserva;
     private int idPersona;
     private Date fechaInicio;
     private Date fechaFin;
     private int dias;
     private HabitacionesDto habitacion;
+    private PersonasDto persona;
+
+    public ReservaDto(long idReserva, int idPersona, Date fechaInicio, Date fechaFin, int dias, HabitacionesDto habitacion) {
+        this.idReserva = idReserva;
+        this.idPersona = idPersona;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.dias = dias;
+        this.habitacion = habitacion;
+    }
 }

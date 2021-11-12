@@ -30,3 +30,16 @@ eureka:
       defaultZone: http://localhost:8099/eureka/
     healthcheck:
       enabled: true 
+Feign:
+  hystrix:
+    enabled: true
+    dashboard:
+      proxy-stream-allow-list: "*"
+management:
+  endpoints:
+    hystrix: 
+      stream:
+        enabled: true
+    web:
+      exposure:
+        include: "*"

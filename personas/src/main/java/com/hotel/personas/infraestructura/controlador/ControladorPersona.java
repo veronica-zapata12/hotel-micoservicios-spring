@@ -7,6 +7,7 @@ import com.hotel.personas.aplicacion.consulta.ManejadorConsultaPersonaPorId;
 import com.hotel.personas.aplicacion.consulta.ManejadorConsultarPersonas;
 import com.hotel.personas.dominio.modelo.dto.PersonasDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,12 +32,14 @@ public class ControladorPersona {
 
     }
     @GetMapping(value = "/{id}")
-    public PersonasDto buscarPorId(@PathVariable int id){
-        return this.manejadorConsultaPersonaPorId.ejecutar(id);
+    public ResponseEntity<PersonasDto> buscarPorId(@PathVariable int id){
+
+        return new ResponseEntity<>(this.manejadorConsultaPersonaPorId.ejecutar(id),HttpStatus.OK);
     }
+
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<PersonasDto> listar(){
-        return this.manejadorConsultarPersonas.ejecutar();
+
+    public ResponseEntity<List<PersonasDto>> listar(){
+        return new ResponseEntity<>(this.manejadorConsultarPersonas.ejecutar(),HttpStatus.OK);
     }
 }
