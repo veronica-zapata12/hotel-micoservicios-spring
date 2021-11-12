@@ -2,7 +2,9 @@ package com.hotel.reservas.infraestructura.cliente;
 
 import com.hotel.reservas.dominio.modelo.dto.PersonasDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PersonasHystrixFallbackFactory implements PersonasCliente{
     @Override
     public ResponseEntity<PersonasDto> buscarPorId(int id) {
