@@ -4,6 +4,8 @@ import com.hotel.reservas.dominio.modelo.dto.ReservaDto;
 import com.hotel.reservas.dominio.servicios.ServicioConsultarReservas;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class ManejadorConsultaReservaPorId {
     private final ServicioConsultarReservas servicioConsultarReservas;
@@ -14,7 +16,7 @@ public class ManejadorConsultaReservaPorId {
         this.servicioConsultarReservas = servicioConsultarReservas;
     }
 
-    public ReservaDto ejecutar(Long id){
+    public Optional<ReservaDto> ejecutar(Long id){
         return this.servicioConsultarReservas.listarReservaId(id);
     }
 }

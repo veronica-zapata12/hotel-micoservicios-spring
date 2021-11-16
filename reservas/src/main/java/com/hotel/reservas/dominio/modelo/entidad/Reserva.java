@@ -17,6 +17,7 @@ public class Reserva {
     private Date fechaFin;
     private int dias;
     private Habitaciones habitacion;
+    private Double total;
 
     public Reserva( int idPersona, Date fechaIncio, Date fechaFin, Habitaciones habitaciones) {
         ValidadorDeArgumento.validarObligatorio(String.valueOf (idPersona),EL_ID_PERSONA_ES_OBLIGATORIO);
@@ -27,6 +28,7 @@ public class Reserva {
         this.fechaFin = fechaFin;
         this.habitacion = habitaciones;
         this.dias=this.calcularDias(this.fechaInicio,this.fechaFin);
+        this.total=this.totalPorDias(dias,habitaciones.getPrecio());
     }
 
     private int calcularDias(Date fechaIncio, Date fechaFin) {
@@ -40,10 +42,10 @@ public class Reserva {
         int dias = (int) (diasHasta - diasDesde);
 
         return dias;
-        /*int diferencia = (int) (fechaIncio.getTime() - fechaFin.getTime());
-        TimeUnit time = TimeUnit.DAYS;
-        int dias = (int) time.convert(diferencia, TimeUnit.MILLISECONDS);
-        return dias;*/
+
+    }
+    private double totalPorDias(int dias, double valor){
+        return dias*valor;
     }
 }
 

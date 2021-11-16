@@ -31,7 +31,7 @@ public class ServicioCrearReservaTest {
         Mockito.when(repositorioReserva.existe(reserva)).thenReturn(false);
         repositorioHabitaciones.cambiarEstado(reserva.getHabitacion());
         servicioCrearReserva.ejecutar(reserva);
-        Assertions.assertEquals(1234,reserva.getIdPersona());
+        Assertions.assertEquals(123456,reserva.getIdPersona());
         Assertions.assertEquals(1,reserva.getDias());
     }
 

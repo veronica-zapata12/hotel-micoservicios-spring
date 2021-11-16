@@ -10,7 +10,7 @@ import com.hotel.reservas.dominio.puerto.repositorio.RepositorioReserva;
 
 
 public class ServicioCrearReserva {
-    private static final String LA_HABITACION_SE_ENCUENTRA_OCUPADA_PARA_ESA_FECHA = "la habitacion se encuentra ocupada para esa fecha";
+    private static final String LA_HABITACION_SE_ENCUENTRA_OCUPADA= "la habitacion se encuentra ocupada";
     private final RepositorioReserva repositorioReserva;
     private final RepositorioHabitaciones repositorioHabitaciones;
 
@@ -31,7 +31,7 @@ public class ServicioCrearReserva {
     private void validarHabitacionPorFecha(Reserva reserva) {
         boolean existe =this.repositorioReserva.existe(reserva);
         if(existe) {
-            throw new ExcepcionGeneral(LA_HABITACION_SE_ENCUENTRA_OCUPADA_PARA_ESA_FECHA);
+            throw new ExcepcionGeneral(LA_HABITACION_SE_ENCUENTRA_OCUPADA);
         }
     }
 

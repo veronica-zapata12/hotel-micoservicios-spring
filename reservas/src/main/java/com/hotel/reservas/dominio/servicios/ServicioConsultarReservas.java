@@ -4,6 +4,7 @@ import com.hotel.reservas.dominio.modelo.dto.ReservaDto;
 import com.hotel.reservas.dominio.puerto.dao.DaoReserva;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ServicioConsultarReservas {
     private final DaoReserva daoReserva;
@@ -11,7 +12,7 @@ public class ServicioConsultarReservas {
     public ServicioConsultarReservas(DaoReserva daoReserva) {
         this.daoReserva = daoReserva;
     }
-   public ReservaDto listarReservaId(Long idReserva){
+   public Optional<ReservaDto> listarReservaId(Long idReserva){
         return this.daoReserva.getReservaById(idReserva);
     }
    public List<ReservaDto> listarTodo(){

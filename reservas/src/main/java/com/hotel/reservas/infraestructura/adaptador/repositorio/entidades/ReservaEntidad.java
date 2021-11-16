@@ -29,6 +29,7 @@ public class ReservaEntidad {
     @Column(name = "fecha_fin")
     private Date fechaFin;
     private int dias;
+    private double total;
     @OneToOne(fetch =FetchType.LAZY )
     @JoinColumn(name="id_habitacion")
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})

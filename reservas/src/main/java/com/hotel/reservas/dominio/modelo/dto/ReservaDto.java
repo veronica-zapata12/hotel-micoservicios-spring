@@ -19,14 +19,16 @@ public class ReservaDto {
     private Date fechaFin;
     private int dias;
     private HabitacionesDto habitacion;
+    private Double total;
     private PersonasDto persona;
 
-    public ReservaDto(long idReserva, int idPersona, Date fechaInicio, Date fechaFin, int dias, HabitacionesDto habitacion) {
+    public ReservaDto(long idReserva, int idPersona, Date fechaInicio, Date fechaFin, int dias, HabitacionesDto habitacion, double total) {
         this.idReserva = idReserva;
         this.idPersona = idPersona;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.dias = dias;
         this.habitacion = habitacion;
+        this.total=total;
     }
 }

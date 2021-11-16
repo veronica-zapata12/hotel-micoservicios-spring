@@ -3,10 +3,14 @@ package com.hotel.reservas.testInfraestructura;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotel.reservas.ReservasApplication;
 import com.hotel.reservas.aplicacion.comando.ComandoReserva;
+import com.hotel.reservas.dominio.modelo.dto.PersonasDto;
 import com.hotel.reservas.dominio.modelo.entidad.Habitaciones;
 import com.hotel.reservas.dominio.modelo.entidad.Reserva;
+
 import com.hotel.reservas.dominio.puerto.repositorio.RepositorioReserva;
+
 import com.hotel.reservas.infraestructura.adaptador.repositorio.entidades.HabitacionEntidad;
+import com.hotel.reservas.infraestructura.cliente.PersonasCliente;
 import com.hotel.reservas.infraestructura.repositorioJpa.HabitacionRepositorioJpa;
 import com.hotel.reservas.testDominio.HabitacionDataBuilder;
 import com.hotel.reservas.testDominio.ReservaDataBuilder;
@@ -14,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +27,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -36,6 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = ReservasApplication.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class ControladorReservaTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -46,6 +56,8 @@ public class ControladorReservaTest {
     @Autowired
     private MockMvc mockMvc;
 
+
+    private PersonasCliente personasCliente;
     @Autowired
     RepositorioReserva repositorioReserva;
     @Autowired
@@ -55,8 +67,10 @@ public class ControladorReservaTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
     }
     @Test
-    @DisplayName("Deberia guardar correctamente la persona")
-    public void guardarPersona() throws Exception {
+    @DisplayName("Deberia guardar correctamente la reserva")
+
+    public void guardarReserva() throws Exception {
+
 
         ComandoReserva comandoReserva=new ComandoReservaDataBuilder().build();
         mockMvc.perform(post("http://localhost:8091/reservas").contentType(MediaType.APPLICATION_JSON)
@@ -69,32 +83,48 @@ public class ControladorReservaTest {
     @Test
     @DisplayName("Deberia consultar todas las reservas")
     public void consultarTodos() throws Exception {
-        Reserva reserva = new ReservaDataBuilder().build();
+        /*Reserva reserva = new ReservaDataBuilder().build();
         repositorioReserva.save(reserva);
+        personasCliente = Mockito.mock(PersonasCliente.class);
+        PersonasDto personasDto=new PersonasDto(1234,"juan","calle 12",123456,"juan@juan");
+        Mockito.when(personasCliente.buscarPorId(reserva.getIdPersona()).getBody()).thenReturn(personasDto);*/
         mockMvc.perform(get("http://localhost:8091/reservas")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
+                //.andExpect(jsonPath("$", hasSize(5)))
                 .andDo(print());
     }
     @Test
     @DisplayName("Deberia consultar la reserva por el id")
     public void consultarPorId() throws Exception {
-        Reserva reserva = new ReservaDataBuilder().build();
+        /*Reserva reserva = new ReservaDataBuilder().build();
         repositorioReserva.save(reserva);
-        mockMvc.perform(get("http://localhost:8091/reservas/{id}",1)
+        personasCliente = Mockito.mock(PersonasCliente.class);
+        PersonasDto personasDto=new PersonasDto(reserva.getIdPersona(),"juan","calle 12",123456,"juan@juan");
+        Mockito.when(personasCliente.buscarPorId(reserva.getIdPersona()).getBody()).thenReturn(personasDto);*/
+        mockMvc.perform(get("http://localhost:8091/reservas/{id}",27)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.idPersona", is(1234)))
+                .andExpect(jsonPath("$.idPersona", is(123456)))
                 .andExpect(jsonPath("$.dias", is(1)))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("Deberia devolver un not found por que ese id no existe")
+    public void consultarPorIdNoExistente() throws Exception {
+        Reserva reserva = new ReservaDataBuilder().build();
+        repositorioReserva.save(reserva);
+        mockMvc.perform(get("http://localhost:8091/reservas/{id}",11)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
                 .andDo(print());
     }
     @Test
     @DisplayName("Deberia consultar la habitacion por el estado")
     public void consultarHbitacionPorId() throws Exception {
-        Habitaciones habitaciones=new HabitacionDataBuilder().build();
+        /*Habitaciones habitaciones=new HabitacionDataBuilder().build();
         HabitacionEntidad habitacionEntidad=new HabitacionEntidad(habitaciones.getIdHabitacion(),habitaciones.getCapacidad(),habitaciones.getNumeroCamas(),habitaciones.getPrecio(),habitaciones.getEstado());
-        habitacionRepositorioJpa.save(habitacionEntidad);
+        habitacionRepositorioJpa.save(habitacionEntidad);*/
         mockMvc.perform(get("http://localhost:8091/reservas/habitaciones/{id}","libre")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

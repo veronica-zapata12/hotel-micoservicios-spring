@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ServicioConsultarReservasTest {
     private DaoReserva daoReserva;
@@ -31,7 +32,7 @@ public class ServicioConsultarReservasTest {
         Reserva reserva=new ReservaDataBuilder().build();
         Habitaciones habitaciones=new HabitacionDataBuilder().build();
         HabitacionesDto habitacionesDto=new HabitacionesDto(habitaciones.getIdHabitacion(),habitaciones.getCapacidad(),habitaciones.getNumeroCamas(), habitaciones.getPrecio(), habitaciones.getEstado());
-        ReservaDto reservaDto=new ReservaDto(reserva.getIdReserva(), reserva.getIdPersona(), reserva.getFechaInicio(),reserva.getFechaFin(), reserva.getDias(), habitacionesDto);
+        ReservaDto reservaDto=new ReservaDto(reserva.getIdReserva(), reserva.getIdPersona(), reserva.getFechaInicio(),reserva.getFechaFin(), reserva.getDias(), habitacionesDto, reserva.getTotal());
         reservaDtoList.add(reservaDto);
         Mockito.when(daoReserva.obtenerTodos()).thenReturn(reservaDtoList);
         List<ReservaDto> reservaDtoList1=servicioConsultarReservas.listarTodo();
@@ -44,12 +45,12 @@ public class ServicioConsultarReservasTest {
         Reserva reserva=new ReservaDataBuilder().build();
         Habitaciones habitaciones=new HabitacionDataBuilder().build();
         HabitacionesDto habitacionesDto=new HabitacionesDto(habitaciones.getIdHabitacion(),habitaciones.getCapacidad(),habitaciones.getNumeroCamas(), habitaciones.getPrecio(), habitaciones.getEstado());
-        ReservaDto reservaDto=new ReservaDto(reserva.getIdReserva(), reserva.getIdPersona(), reserva.getFechaInicio(),reserva.getFechaFin(), reserva.getDias(), habitacionesDto);
+        ReservaDto reservaDto=new ReservaDto(reserva.getIdReserva(), reserva.getIdPersona(), reserva.getFechaInicio(),reserva.getFechaFin(), reserva.getDias(), habitacionesDto,reserva.getTotal());
 
-        Mockito.when(daoReserva.getReservaById(reserva.getIdReserva())).thenReturn(reservaDto);
-        ReservaDto reservaDto1=servicioConsultarReservas.listarReservaId(reserva.getIdReserva());
-        Assertions.assertEquals(1234,reservaDto1.getIdPersona());
-        Assertions.assertEquals(1,reservaDto1.getDias());
-        Assertions.assertEquals(101,reservaDto1.getHabitacion().getIdHabitacion());
+        Mockito.when(daoReserva.getReservaById(reserva.getIdReserva())).thenReturn(Optional.of(reservaDto));
+        Optional<ReservaDto> reservaDto1=servicioConsultarReservas.listarReservaId(reserva.getIdReserva());
+        Assertions.assertEquals(123456,reservaDto1.get().getIdPersona());
+        Assertions.assertEquals(1,reservaDto1.get().getDias());
+        Assertions.assertEquals(101,reservaDto1.get().getHabitacion().getIdHabitacion());
     }
 }

@@ -8,13 +8,15 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ReservaDataBuilder {
-    private static final int IDPERSONA=1234;
+    private static final int IDPERSONA=123456;
     private static final Date FECHAINICIO= new Date();
     private static final Date FECHAFIN= new Date();
     private int idPersona;
     private Date fechaInicio;
     private Date fechaFin;
+
     private Habitaciones habitacion;
+
 
     public ReservaDataBuilder() {
         this.idPersona= IDPERSONA;
