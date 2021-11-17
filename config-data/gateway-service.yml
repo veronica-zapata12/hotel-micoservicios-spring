@@ -21,7 +21,4 @@ spring:
           uri: lb://reservas-service
           predicates:
             - Path=/reservas/**
-        - id: facturas-service
-          uri: lb://facturas-service
-          predicates:
-            - Path=/factura/**
+       

@@ -6,3 +6,8 @@ spring:
       uri: http://localhost:8094
       username: root
       password: s3cr3t
+  boot:
+    admin:
+      client:
+        prefer-ip: true
+        url: http://localhost:8096

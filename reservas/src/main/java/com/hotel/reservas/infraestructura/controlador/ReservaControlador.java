@@ -52,6 +52,7 @@ public class ReservaControlador {
     public void crear(@RequestBody ComandoReserva comandoReserva) {
         manejadorCrearReserva.ejecutar(comandoReserva);
     }
+
     @GetMapping(value = "/habitaciones/{id}")
     public ResponseEntity<List<HabitacionesDto>> getHabitaciones(@PathVariable("id") String estado) {
         return new ResponseEntity<>(manejadorConsultarHabitaciones.ejecutar(estado), HttpStatus.OK);
